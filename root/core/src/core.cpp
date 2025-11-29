@@ -1,4 +1,6 @@
 #include "core.h"
+#include "structs.hpp"
+
 Core::Core(): _l("Cmake Template") {
 }
 

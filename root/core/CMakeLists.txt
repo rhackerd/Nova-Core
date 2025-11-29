@@ -1,21 +1,29 @@
-# Collect source files
+cmake_minimum_required(VERSION 3.10)
+
+project(NovaCore LANGUAGES CXX)
+
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS
-    "*.cpp"
-    "*.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp"
 )
 
-# Create library
-add_library(${PROJECT_NAME} STATIC ${SOURCES})
-add_library(Nova::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+add_library(NovaCore STATIC ${SOURCES})
 
-# Include directory
-target_include_directories(${PROJECT_NAME} PUBLIC
-    "${CMAKE_CURRENT_SOURCE_DIR}/include"
+add_library(Nova::Core ALIAS NovaCore)
+
+find_package(fmt CONFIG REQUIRED)
+find_package(cglm CONFIG REQUIRED)
+
+target_include_directories(NovaCore
+    PUBLIC
+        "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-# Link dependencies
-target_link_libraries(${PROJECT_NAME}
+target_compile_features(NovaCore PUBLIC cxx_std_20)
+
+target_link_libraries(NovaCore
     PUBLIC
         fmt::fmt
         Nova::Logger
+        cglm::cglm
 )

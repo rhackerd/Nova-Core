@@ -20,4 +20,19 @@ struct ModuleContext {
     
 };
 
+namespace Nova::Core {
+    class Object {
+        protected:
+
+        public:
+            virtual ~Object() = default;
+
+        public:
+    };
+
+    
+};
+
+namespace N = Nova;
+
 #endif
